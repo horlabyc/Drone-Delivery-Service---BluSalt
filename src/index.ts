@@ -2,9 +2,10 @@ import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { errorHandler } from './middleware/error-handler';
+import { errorConverter, errorHandler } from './middleware/error-handler';
 import { AppDataSource } from './config/database';
 import { seedData } from './seeds/seed-data';
+import router from './routes';
 
 dotenv.config();
 
@@ -15,9 +16,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api', router);
+
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
+
+app.use(errorConverter);
 
 app.use(errorHandler);
 

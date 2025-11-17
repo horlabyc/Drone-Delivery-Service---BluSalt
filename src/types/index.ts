@@ -13,3 +13,10 @@ export enum DroneState {
   DELIVERED = 'DELIVERED',
   RETURNING = 'RETURNING'
 }
+
+export interface RegisterDroneDTO {
+  serialNumber: string;
+  model: DroneModel;
+  weightLimit: number;
+  batteryCapacity: number;
+}
