@@ -1,0 +1,24 @@
+{
+  "name": "drone-management-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horlabyc/Drone-Delivery-Service---BluSalt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/horlabyc/Drone-Delivery-Service---BluSalt/issues"
+  },
+  "homepage": "https://github.com/horlabyc/Drone-Delivery-Service---BluSalt#readme",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}
