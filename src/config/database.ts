@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { Drone } from "../entities/Drone";
+import { Drone } from "../entities/drone";
 import { Medication } from "../entities/medication";
 import { DroneMedication } from "../entities/drone-medication";
 

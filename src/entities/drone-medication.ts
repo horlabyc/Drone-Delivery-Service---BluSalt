@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Medication } from "./medication";
-import { Drone } from "./Drone";
+import { Drone } from "./drone";
 
 @Entity('drone_medications')
 export class DroneMedication {

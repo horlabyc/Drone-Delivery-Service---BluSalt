@@ -16,7 +16,7 @@ export class Drone {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   weightLimit: number;
 
-  @Column({ type: 'decimal', precision: 4, scale: 2 })
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   batteryCapacity: number;
 
   @Column({ type: 'enum', enum: DroneState, default: DroneState.IDLE })

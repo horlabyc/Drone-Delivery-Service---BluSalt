@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/error-handler';
+import { AppDataSource } from './config/database';
+import { seedData } from './seeds/seed-data';
 
 dotenv.config();
 
@@ -21,6 +23,12 @@ app.use(errorHandler);
 
 const startServer = async () => {
   try {
+    await AppDataSource.initialize();
+    console.log('Database connected successfully');
+
+    await seedData();
+    console.log('Database seeded successfully');
+    
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
       console.log(`Health check: http://localhost:${PORT}/health`);
