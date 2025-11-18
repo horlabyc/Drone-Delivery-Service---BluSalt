@@ -6,6 +6,7 @@ import { errorConverter, errorHandler } from './middleware/error-handler';
 import { AppDataSource } from './config/database';
 import { seedData } from './seeds/seed-data';
 import router from './routes';
+import { initBatteryCheckWorker, scheduleBatteryCheck } from './workers/battery-check-worker';
 
 dotenv.config();
 
@@ -33,6 +34,10 @@ const startServer = async () => {
 
     await seedData();
     console.log('Database seeded successfully');
+
+    initBatteryCheckWorker();
+    await scheduleBatteryCheck();
+    console.log('Battery check worker initialized');
     
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
