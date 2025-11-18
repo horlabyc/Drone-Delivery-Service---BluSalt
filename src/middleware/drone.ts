@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { DroneModel } from "../types";
+import { DroneModel, DroneState } from "../types";
 
 export const registerDrone = {
   body: Joi.object().keys({
@@ -16,5 +16,17 @@ export const loadDrone = {
   body: Joi.object().keys({
     droneId: Joi.string().uuid().required(),
     medicationIds: Joi.array().items(Joi.string()).required()
+  })
+};
+
+export const getAllDrones = {
+  query: Joi.object().keys({
+    page: Joi.string(),
+    pageSize: Joi.string(),
+    sortBy: Joi.string().valid('desc', 'asc', 'createdAt'),
+    dateFrom: Joi.date(),
+    dateTo: Joi.date(),
+    state: Joi.string().valid(DroneState.DELIVERED, DroneState.DELIVERING, DroneState.IDLE, DroneState.LOADED, DroneState.LOADING, DroneState.RETURNING),
+    model: Joi.string().valid(DroneModel.CRUISERWEIGHT, DroneModel.HEAVYWEIGHT, DroneModel.LIGHTWEIGHT, DroneModel.MIDDLEWEIGHT),
   })
 };

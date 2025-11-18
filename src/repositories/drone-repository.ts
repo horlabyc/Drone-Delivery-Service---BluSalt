@@ -4,6 +4,8 @@ import { Drone } from "../entities/drone";
 export class DroneRepository { 
   private repository = AppDataSource.getRepository(Drone);
 
+  public repoInst = this.repository;
+
   async create(droneData: Partial<Drone>): Promise<Drone> {
     const drone = this.repository.create(droneData);
     return await this.repository.save(drone);
@@ -20,5 +22,9 @@ export class DroneRepository {
   async update(id: string, data: Partial<Drone>): Promise<Drone | null> {
     await this.repository.update(id, data);
     return await this.findById(id);
+  }
+
+  async findAll(): Promise<Drone[]> {
+    return await this.repository.find();
   }
 }

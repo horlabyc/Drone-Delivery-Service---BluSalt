@@ -25,3 +25,9 @@ export interface LoadMedicationDTO {
   droneId: string;
   medicationIds: string[];
 }
+
+export interface IOptions {
+  sortBy?: string;
+  pageSize?: string;
+  page?: string;
+}
