@@ -20,3 +20,8 @@ export interface RegisterDroneDTO {
   weightLimit: number;
   batteryCapacity: number;
 }
+
+export interface LoadMedicationDTO {
+  droneId: string;
+  medicationIds: string[];
+}

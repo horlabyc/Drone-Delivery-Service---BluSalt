@@ -11,3 +11,10 @@ export const registerDrone = {
     weightLimit: Joi.number().max(500).min(1).required()
   })
 };
+
+export const loadDrone = {
+  body: Joi.object().keys({
+    droneId: Joi.string().uuid().required(),
+    medicationIds: Joi.array().items(Joi.string()).required()
+  })
+};

@@ -12,4 +12,13 @@ export class DroneRepository {
   async findBySerialNumber(serialNumber: string): Promise<Drone | null> {
     return await this.repository.findOne({ where: { serialNumber } });
   }
+
+  async findById(id: string): Promise<Drone | null> {
+    return await this.repository.findOne({ where: { id } });
+  }
+
+  async update(id: string, data: Partial<Drone>): Promise<Drone | null> {
+    await this.repository.update(id, data);
+    return await this.findById(id);
+  }
 }
