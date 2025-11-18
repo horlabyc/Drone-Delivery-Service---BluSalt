@@ -80,8 +80,8 @@ export class DroneService {
     pageSize?: number;
     totalPages?: number;
   }> {
-    const page = options.page ? parseInt(options.page as string, 10) : 1; // Page number from query parameter
-    const pageSize = options.pageSize ? parseInt(options.pageSize as string, 10) : 5; // Items per page from query parameter
+    const page = options.page ? parseInt(options.page as string, 10) : 1;
+    const pageSize = options.pageSize ? parseInt(options.pageSize as string, 10) : 5;
     const { sortBy } = options;
 
     const [drones, total] = await this.droneRepo.getAllDrones({ page, pageSize, sortBy }, filter)

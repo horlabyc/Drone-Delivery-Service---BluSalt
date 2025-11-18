@@ -26,7 +26,7 @@ export class DroneController {
   })
 
   getAllDrones = catchAsync(async (req: Request, res: Response) => {
-    const filter = pick(req.query, ['state', 'model', 'searchTerm', 'dateFrom', 'dateTo']);
+    const filter = pick(req.query, ['state', 'model', 'dateFrom', 'dateTo']);
     const options: IOptions = pick(req.query, ['sortBy', 'pageSize', 'page']);
     const response = await this.droneService.getAllDrones(options, filter);
     return sendResponse(res, httpStatus.OK, response, 'All drones', '00');
