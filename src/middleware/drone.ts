@@ -42,7 +42,7 @@ export const getAvailableDrones = {
   })
 };
 
-export const getDroneMedications = {
+export const validateDroneIdParam = {
   param: Joi.object().keys({
     droneId: Joi.string().uuid().required(),
   }),

@@ -45,4 +45,12 @@ export class DroneController {
     }
     return sendResponse(res, httpStatus.OK, { drone: response.data }, 'All drone medications', '00');
   })
+
+  getDroneBattery = catchAsync(async (req: Request, res: Response) => {
+    const response = await this.droneService.getDroneBatteryLevel(req.params.droneId);
+    if (!response.success) {
+      return sendResponse(res, httpStatus.BAD_REQUEST, {}, response.error || 'Drone battery level could not be fetched', '01');
+    }
+    return sendResponse(res, httpStatus.OK, { batteryLevel: response.data }, 'Drone battery level', '00');
+  })
 }

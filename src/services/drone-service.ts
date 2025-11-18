@@ -129,4 +129,12 @@ export class DroneService {
     return { success: true, data: medications }
   }
 
+  async getDroneBatteryLevel(droneId: string): Promise<{ success: boolean, data?: number, error?: string }> {
+    const drone = await this.droneRepo.findById(droneId);
+    if (!drone) {
+      return { success: false, error: 'Drone not found' }
+    }
+    return { success: true, data: Number(drone.batteryCapacity) };
+  }
+
 }
