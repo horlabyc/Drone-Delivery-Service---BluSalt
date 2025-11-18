@@ -1,5 +1,6 @@
 import { AppDataSource } from "../config/database";
 import { Drone } from "../entities/drone";
+import { DroneState, IOptions } from "../types";
 
 export class DroneRepository { 
   private repository = AppDataSource.getRepository(Drone);
@@ -32,10 +33,10 @@ export class DroneRepository {
   async getAllDrones(
     options: { page:number, pageSize: number, sortBy: string | undefined },
     filter: Record<string, any>
-  ) {
+  ): Promise<[Drone[], number]> {
     const { page, pageSize, sortBy } = options
     const query = this.repository
-    .createQueryBuilder('drones')
+      .createQueryBuilder('drones')
   
     if (page !== undefined && pageSize !== undefined) {
       query.skip((page - 1) * pageSize).take(pageSize);
@@ -65,6 +66,23 @@ export class DroneRepository {
 
     if (filter['state']) {
       query.andWhere('drones.state = :droneState', { droneState: filter['state'] });
+    }
+
+    return await query.getManyAndCount();
+  }
+
+  async findAvailableForLoading(
+    options: { page:number, pageSize: number, sortBy: string | undefined },
+  ): Promise<[Drone[], number]> {
+    const { page, pageSize, sortBy } = options;
+
+    const query = this.repository
+      .createQueryBuilder('drone')
+      .where('drone.state = :state', { state: DroneState.IDLE })
+      .andWhere('drone.batteryCapacity >= :minBattery', { minBattery: 25 })
+    
+    if (page !== undefined && pageSize !== undefined) {
+      query.skip((page - 1) * pageSize).take(pageSize);
     }
 
     return await query.getManyAndCount();

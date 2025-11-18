@@ -30,3 +30,14 @@ export const getAllDrones = {
     model: Joi.string().valid(DroneModel.CRUISERWEIGHT, DroneModel.HEAVYWEIGHT, DroneModel.LIGHTWEIGHT, DroneModel.MIDDLEWEIGHT),
   })
 };
+
+export const getAvailableDrones = {
+  query: Joi.object().keys({
+    page: Joi.string(),
+    pageSize: Joi.string(),
+    sortBy: Joi.string().valid('desc', 'asc', 'createdAt'),
+    dateFrom: Joi.date(),
+    dateTo: Joi.date(),
+    model: Joi.string().valid(DroneModel.CRUISERWEIGHT, DroneModel.HEAVYWEIGHT, DroneModel.LIGHTWEIGHT, DroneModel.MIDDLEWEIGHT),
+  })
+};

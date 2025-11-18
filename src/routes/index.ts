@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { DroneController } from '../controllers/drone-controller';
 import validate from '../middleware/validate.middleware';
-import { getAllDrones, loadDrone, registerDrone } from '../middleware';
+import { getAllDrones, getAvailableDrones, loadDrone, registerDrone } from '../middleware';
 
 const router = Router();
 const droneController = new DroneController();
@@ -10,5 +10,6 @@ const droneController = new DroneController();
 router.post('/drones', validate(registerDrone), droneController.registerDrone);
 router.post('/drones/load', validate(loadDrone), droneController.loadDrone);
 router.get('/drones', validate(getAllDrones), droneController.getAllDrones);
+router.get('/drones/available', validate(getAvailableDrones), droneController.getAvailableDrones);
 
 export default router;

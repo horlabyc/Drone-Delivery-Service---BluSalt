@@ -31,4 +31,10 @@ export class DroneController {
     const response = await this.droneService.getAllDrones(options, filter);
     return sendResponse(res, httpStatus.OK, response, 'All drones', '00');
   })
+
+  getAvailableDrones = catchAsync(async (req: Request, res: Response) => {
+    const options: IOptions = pick(req.query, ['sortBy', 'pageSize', 'page']);
+    const drones = await this.droneService.getAvailableDrones(options);
+    return sendResponse(res, httpStatus.OK, drones, 'All available drones', '00');
+  })
 }

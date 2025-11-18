@@ -91,4 +91,25 @@ export class DroneService {
     }
     return { drones, total };
   }
+
+  async getAvailableDrones(
+    options: IOptions,
+  ): Promise<{
+    drones: Partial<Drone>[];
+    total: number;
+    page?: number;
+    pageSize?: number;
+    totalPages?: number;
+  }> {
+    const page = options.page ? parseInt(options.page as string, 10) : 1;
+    const pageSize = options.pageSize ? parseInt(options.pageSize as string, 10) : 5;
+    const { sortBy } = options;
+
+    const [drones, total] = await this.droneRepo.findAvailableForLoading({ page, pageSize, sortBy })
+    if (page !== undefined && pageSize !== undefined) {
+      const totalPages = Math.ceil(total / pageSize);
+      return { drones, total, page, pageSize, totalPages };
+    }
+    return { drones, total };
+  }
 }
