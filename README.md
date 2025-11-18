@@ -42,15 +42,13 @@ A RESTful API service for managing a fleet of drones for medication delivery.
    ``npm run docker-dev``
 4. The API will be available at `http://localhost:3000`
 
-
 ## Local Development Setup
 
 1. **Install dependencies**
    ``npm install ``
-2. **Start PostgreSQL and Redis** `docker-compose up postgres redis `
+2. **Start PostgreSQL and Redis** `docker compose up postgres redis `
 3. ****Run in development mode**** ``npm run dev``
 4. ****Run tests**** ``npm test``
-
 
 #### **API Endpoints**
 
