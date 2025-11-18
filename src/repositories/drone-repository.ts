@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/database";
 import { Drone } from "../entities/drone";
-import { DroneState, IOptions } from "../types";
+import { DroneState } from "../types";
 
 export class DroneRepository { 
   private repository = AppDataSource.getRepository(Drone);

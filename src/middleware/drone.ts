@@ -41,3 +41,9 @@ export const getAvailableDrones = {
     model: Joi.string().valid(DroneModel.CRUISERWEIGHT, DroneModel.HEAVYWEIGHT, DroneModel.LIGHTWEIGHT, DroneModel.MIDDLEWEIGHT),
   })
 };
+
+export const getDroneMedications = {
+  param: Joi.object().keys({
+    droneId: Joi.string().uuid().required(),
+  }),
+};

@@ -4,6 +4,7 @@ import { DroneState, IOptions, LoadMedicationDTO, RegisterDroneDTO } from "../ty
 import { MedicationRepository } from '../repositories/medication-repository';
 import { AppDataSource } from '../config/database';
 import { DroneMedication } from '../entities/drone-medication';
+import { Medication } from "../entities/medication";
 
 export class DroneService {
   private droneRepo = new DroneRepository();
@@ -112,4 +113,20 @@ export class DroneService {
     }
     return { drones, total };
   }
+
+  async getLoadedMedications(droneId: string): Promise<{ success: boolean, data?:Medication[], error?: string}> {
+    const drone = await this.droneRepo.findById(droneId);
+    if (!drone) {
+      return { success: false, error: 'Drone not found' }
+    }
+
+    const droneMedications = await this.droneMedicationRepo.find({
+      where: { droneId },
+      relations: ['medication']
+    });
+
+    const medications = droneMedications.map(dm => dm.medication);
+    return { success: true, data: medications }
+  }
+
 }

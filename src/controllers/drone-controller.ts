@@ -37,4 +37,12 @@ export class DroneController {
     const drones = await this.droneService.getAvailableDrones(options);
     return sendResponse(res, httpStatus.OK, drones, 'All available drones', '00');
   })
+
+  getLoadedMedications = catchAsync(async (req: Request, res: Response) => {
+    const response = await this.droneService.getLoadedMedications(req.params.droneId);
+    if (!response.success) {
+      return sendResponse(res, httpStatus.BAD_REQUEST, {}, response.error || 'Drone medications could not be fetched', '01');
+    }
+    return sendResponse(res, httpStatus.OK, { drone: response.data }, 'All drone medications', '00');
+  })
 }
