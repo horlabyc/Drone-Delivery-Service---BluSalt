@@ -94,6 +94,8 @@ Content-Type: application/json
 
 ``GET /api/drones/:droneId/battery``
 
+### **Medications**
+
 #### Get all medications
 
 ``GET api/medications?page=&pageSize=20&sortBy=``
