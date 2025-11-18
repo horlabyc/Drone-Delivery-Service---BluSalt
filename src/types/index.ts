@@ -31,3 +31,10 @@ export interface IOptions {
   pageSize?: string;
   page?: string;
 }
+
+export interface RegisterMedicationDTO {
+  name: string;
+  weight: number;
+  code: string;
+  image?: string;
+}

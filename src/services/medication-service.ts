@@ -1,6 +1,6 @@
 import { Medication } from "../entities/medication";
 import { MedicationRepository } from "../repositories/medication-repository";
-import { IOptions } from "../types";
+import { IOptions, RegisterMedicationDTO } from "../types";
 
 export class MedicationService {
   private medicationRepo = new MedicationRepository();
@@ -23,5 +23,15 @@ export class MedicationService {
       return { medications, total, page, pageSize, totalPages };
     }
     return { medications, total };
+  }
+
+  async registerMedication(data: RegisterMedicationDTO): Promise<{success: boolean, data?: Medication, error?: string}> {
+    const existing = await this.medicationRepo.findByCode(data.code);
+    if (existing) {
+      return { success: false, error: 'Medication with this code already exists' }
+    }
+
+    const medication = await this.medicationRepo.create(data);
+    return { success: true, data: medication }
   }
 }

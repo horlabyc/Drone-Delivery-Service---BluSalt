@@ -16,4 +16,12 @@ export class MedicationsController {
     const response = await this.medicationService.getAllMedications(options, filter);
     return sendResponse(res, httpStatus.OK, response, 'All medications', '00');
   })
+
+  registerMedication = catchAsync(async (req: Request, res: Response) => {
+    const response = await this.medicationService.registerMedication(req.body);
+    if (!response.success) {
+      return sendResponse(res, httpStatus.BAD_REQUEST, {}, response.error || 'Medication could not be registered', '01');
+    }
+    return sendResponse(res, httpStatus.OK, { medication: response.data }, 'Medication registered successfully', '00');
+  })
 }

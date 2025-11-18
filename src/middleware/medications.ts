@@ -10,3 +10,12 @@ export const getAllMedications = {
     searchTerm: Joi.string()
   })
 };
+
+export const registerMedication = {
+  body: Joi.object().keys({
+    code: Joi.string().regex(/^[A-Z0-9_]+$/).required(),
+    name: Joi.string().regex(/^[a-zA-Z0-9_-]+$/).required(),
+    weight: Joi.number().required(),
+    image: Joi.string()
+  })
+};

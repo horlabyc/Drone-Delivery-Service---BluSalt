@@ -3,7 +3,7 @@ import { DroneController } from '../controllers/drone-controller';
 import validate from '../middleware/validate.middleware';
 import { getAllDrones, getAvailableDrones, validateDroneIdParam, loadDrone, registerDrone } from '../middleware';
 import { MedicationsController } from '../controllers/medications-controller';
-import { getAllMedications } from '../middleware/medications';
+import { getAllMedications, registerMedication } from '../middleware/medications';
 
 const router = Router();
 const droneController = new DroneController();
@@ -19,5 +19,6 @@ router.get('/drones/:droneId/battery', validate(validateDroneIdParam), droneCont
 
 // Medication routes
 router.get('/medications', validate(getAllMedications), medicationController.getAllMedications);
+router.post('/medications', validate(registerMedication), medicationController.registerMedication);
 
 export default router;

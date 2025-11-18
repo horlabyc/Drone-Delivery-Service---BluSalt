@@ -53,4 +53,13 @@ export class MedicationRepository {
 
     return await query.getManyAndCount();
   }
+
+  async findByCode(code: string): Promise<Medication | null> {
+    return await this.repository.findOne({ where: { code } });
+  }
+
+  async create(medicationData: Partial<Medication>): Promise<Medication> {
+    const medication = this.repository.create(medicationData);
+    return await this.repository.save(medication);
+  }
 }
