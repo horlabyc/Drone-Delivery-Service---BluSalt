@@ -7,6 +7,8 @@ import { AppDataSource } from './config/database';
 import { seedData } from './seeds/seed-data';
 import router from './routes';
 import { initBatteryCheckWorker, scheduleBatteryCheck } from './workers/battery-check-worker';
+import { initBatteryDischargeWorker, scheduleBatteryDischarge } from './workers/battery-discharge-worker';
+import { initBatteryChargeWorker, scheduleBatteryCharge } from './workers/battery-charge-worker';
 
 dotenv.config();
 
@@ -38,6 +40,14 @@ const startServer = async () => {
     initBatteryCheckWorker();
     await scheduleBatteryCheck();
     console.log('Battery check worker initialized');
+
+    initBatteryDischargeWorker();
+    await scheduleBatteryDischarge();
+    console.log('Battery discharge worker initialized');
+
+    initBatteryChargeWorker();
+    await scheduleBatteryCharge();
+    console.log('Battery charge worker initialized');
     
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

@@ -28,6 +28,10 @@ export class DroneRepository {
   async findAll(): Promise<Drone[]> {
     return await this.repository.find();
   }
+
+  async findWhere(whereClause: Partial<Drone>): Promise<Drone[]> {
+    return await this.repository.find({ where: whereClause});
+  }
   
 
   async getAllDrones(
