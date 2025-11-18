@@ -32,7 +32,13 @@ export const initBatteryCheckWorker = () => {
 }
 
 export const scheduleBatteryCheck = async () => {
-  const interval = parseInt(process.env.BATTERY_CHECK_INTERVAL || '60000');
+  const interval = parseInt(process.env.BATTERY_CHECK_INTERVAL || '900000');
+
+  const existing = await batteryCheckQueue.getRepeatableJobs();
+  for (const job of existing) {
+    console.log(`[BatteryCheck] Removing old repeat job: ${job.key}`);
+    await batteryCheckQueue.removeRepeatableByKey(job.key);
+  }
 
   await batteryCheckQueue.add(
     'check-batteries',
