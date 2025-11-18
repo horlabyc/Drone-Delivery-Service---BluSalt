@@ -83,40 +83,7 @@ export class DroneService {
     const pageSize = options.pageSize ? parseInt(options.pageSize as string, 10) : 5; // Items per page from query parameter
     const { sortBy } = options;
 
-    const query = this.droneRepo.repoInst
-      .createQueryBuilder('drones')
-    
-    if (page !== undefined && pageSize !== undefined) {
-      query.skip((page - 1) * pageSize).take(pageSize);
-    }
-
-    if (sortBy === 'createdAt') {
-      query.orderBy({ 'drones.createdAt': 'DESC' });
-    } else if (sortBy === 'desc') {
-      query.orderBy({ 'drones.createdAt': 'DESC' });
-    } else if (sortBy === 'asc') {
-      query.orderBy({ 'drones.createdAt': 'ASC' });
-    } else {
-      query.orderBy({ 'drones.createdAt': 'DESC' });
-    }
-
-    if (filter['dateFrom']) {
-      query.andWhere('drones.createdAt >= :start_date', { start_date: filter['dateFrom'] });
-    }
-  
-    if (filter['dateTo']) {
-      query.andWhere('drones.createdAt <= :end_date', { end_date: filter['dateTo'] });
-    }
-
-    if (filter['model']) {
-      query.andWhere('drones.model = :droneModel', { droneModel: filter['model'] });
-    }
-
-    if (filter['state']) {
-      query.andWhere('drones.state = :droneState', { droneState: filter['state'] });
-    }
-
-    const [drones, total] = await query.getManyAndCount();
+    const [drones, total] = await this.droneRepo.getAllDrones({ page, pageSize, sortBy }, filter)
 
     if (page !== undefined && pageSize !== undefined) {
       const totalPages = Math.ceil(total / pageSize);

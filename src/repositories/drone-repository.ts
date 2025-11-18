@@ -27,4 +27,46 @@ export class DroneRepository {
   async findAll(): Promise<Drone[]> {
     return await this.repository.find();
   }
+  
+
+  async getAllDrones(
+    options: { page:number, pageSize: number, sortBy: string | undefined },
+    filter: Record<string, any>
+  ) {
+    const { page, pageSize, sortBy } = options
+    const query = this.repository
+    .createQueryBuilder('drones')
+  
+    if (page !== undefined && pageSize !== undefined) {
+      query.skip((page - 1) * pageSize).take(pageSize);
+    }
+
+    if (sortBy === 'createdAt') {
+      query.orderBy({ 'drones.createdAt': 'DESC' });
+    } else if (sortBy === 'desc') {
+      query.orderBy({ 'drones.createdAt': 'DESC' });
+    } else if (sortBy === 'asc') {
+      query.orderBy({ 'drones.createdAt': 'ASC' });
+    } else {
+      query.orderBy({ 'drones.createdAt': 'DESC' });
+    }
+
+    if (filter['dateFrom']) {
+      query.andWhere('drones.createdAt >= :start_date', { start_date: filter['dateFrom'] });
+    }
+
+    if (filter['dateTo']) {
+      query.andWhere('drones.createdAt <= :end_date', { end_date: filter['dateTo'] });
+    }
+
+    if (filter['model']) {
+      query.andWhere('drones.model = :droneModel', { droneModel: filter['model'] });
+    }
+
+    if (filter['state']) {
+      query.andWhere('drones.state = :droneState', { droneState: filter['state'] });
+    }
+
+    return await query.getManyAndCount();
+  }
 }
